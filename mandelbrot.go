@@ -12,7 +12,7 @@ var Mandelbrot MandelbrotHidden
 func (f *MandelbrotHidden) calculate(x, y float64, settings Settings) int {
 	ret := 0
 	z := complex(0, 0)
-	c := complex(float64(x), float64(y))
+	c := complex(x, y)
 
 	for cmplx.Abs(z) < settings.OrigoCap && ret < settings.MaxIter {
 		z = z*z + c
