@@ -1,7 +1,7 @@
 package main
 
 type Pixel struct {
-	iterations    int
-	maxIterations int
-	origoCap      float64
+	Iterations uint8
+	//maxIterations int
+	//origoCap      float64
 }

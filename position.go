@@ -1,6 +1,37 @@
 package main
 
-type Position struct {
+import "math"
+
+type PositionI64 struct {
 	X int64
 	Y int64
+}
+
+type PositionF64 struct {
+	X float64
+	Y float64
+}
+
+type PositionHidden struct {
+}
+
+var Position PositionHidden
+
+func (p *PositionHidden) FromScreenCoordinateToMandelbrotCoordinates(x, y, w, h int) PositionF64 {
+	fX := ((float64(x) / float64(w)) - 0.5) * 5.0
+	fY := ((float64(y) / float64(h)) - 0.5) * 5.0
+
+	return PositionF64{X: fX, Y: fY}
+}
+
+func (p *PositionHidden) FromScreenCoordinateToModelCoordinates(x, y, w, h int) PositionI64 {
+	wX := (float64(x) / float64(w)) * math.MaxInt64
+	wY := (float64(y) / float64(h)) * math.MaxInt64
+
+	return PositionI64{X: int64(wX), Y: int64(wY)}
+}
+
+func (p *PositionI64) GetPositionF64() PositionF64 {
+	// USe math.Float64frombits() ????
+	return PositionF64{X: float64(p.X), Y: float64(p.Y)}
 }
