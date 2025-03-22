@@ -9,9 +9,10 @@ import (
 )
 
 type Settings struct {
-	Width   int
-	Height  int
-	MaxIter int
+	Width      int
+	Height     int
+	MaxIter    int
+	Fullscreen bool
 }
 
 func SettingsDisplay(w fyne.Window, ret *Settings) {
@@ -20,7 +21,10 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 	//widthEntry.Resize(fyne.NewSize(200, widthEntry.MinSize().Height))
 	heightEntry := widget.NewEntry()
 	iterEntry := widget.NewEntry()
+	fullEntry := widget.NewCheck("", func(b bool) {
+		ret.Fullscreen = b
 
+	})
 	widthEntry.Text = strconv.Itoa(ret.Width)
 	heightEntry.Text = strconv.Itoa(ret.Height)
 	iterEntry.Text = strconv.Itoa(ret.MaxIter)
@@ -104,6 +108,7 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		container.NewHBox(widget.NewLabel("Viewer window width (int):"), widthEntry),
 		container.NewHBox(widget.NewLabel("Viewer window heigth (int):"), heightEntry),
 		container.NewHBox(widget.NewLabel("Max iterations (int):"), iterEntry),
+		container.NewHBox(widget.NewLabel("Fullscreen:"), fullEntry),
 		applyButton,
 		currentErrorLabel,
 	)

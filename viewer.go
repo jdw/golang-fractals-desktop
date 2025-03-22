@@ -28,8 +28,13 @@ func ViewerDisplay(w fyne.Window, settings Settings) {
 		})
 
 	w.SetContent(raster)
-	w.Resize(fyne.NewSize(float32(settings.Width), float32(settings.Height)))
-	w.CenterOnScreen()
+	if settings.Fullscreen {
+		w.SetFullScreen(true)
+	} else {
+		w.SetFullScreen(false)
+		w.Resize(fyne.NewSize(float32(settings.Width), float32(settings.Height)))
+		w.CenterOnScreen()
+	}
 
 	w.Show()
 }
