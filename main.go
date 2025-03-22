@@ -10,9 +10,11 @@ import (
 func main() {
 	a := app.New()
 	settings := Settings{
-		Width:   1920,
-		Height:  1080,
-		MaxIter: 30,
+		Width:      1000,
+		Height:     1000,
+		MaxIter:    30,
+		OrigoCap:   2.0,
+		Fullscreen: false,
 	}
 
 	wSett := a.NewWindow("GoLang Fractals Settings")

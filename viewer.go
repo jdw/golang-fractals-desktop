@@ -10,12 +10,10 @@ import (
 func ViewerDisplay(w fyne.Window, settings Settings) {
 	raster := canvas.NewRasterWithPixels(
 		func(x, y, w, h int) color.Color {
-			fY := float64(y) / float64(h)
-			fX := float64(x) / float64(w)
-			//widthScalar := float64(settings.Width) / float64(settings.Height)
-			//heightScalar := float64(settings.Height) / float64(settings.Width)
+			fY := ((float64(y) / float64(h)) - 0.5) * 5.0
+			fX := ((float64(x) / float64(w)) - 0.5) * 5.0
 
-			res := FractalUtil.calculate((fX-0.5)*5.0, (fY-0.5)*5.0, settings.MaxIter)
+			res := Mandelbrot.calculate(fX, fY, settings)
 			charge := float64(res) / float64(settings.MaxIter)
 
 			ret := color.RGBA{R: uint8(charge * 255),

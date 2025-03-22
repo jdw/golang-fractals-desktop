@@ -22,15 +22,15 @@ func (v *Viewport) SetPixel(p Position, pixel Pixel) {
 	v.data[p] = pixel
 }
 
-func (v *Viewport) CalculatePixels(topLeft, bottomRight Position, settings Settings) {
-	for x := topLeft.X; x <= bottomRight.X; x++ {
-		for y := topLeft.Y; y <= bottomRight.Y; y++ {
-			iterations := Mandelbrot.calculate(x, y, settings)
-			pxl := Pixel{iterations: iterations, maxIterations: settings.MaxIter, origoCap: settings.OrigoCap}
-			v.SetPixel(Position{X: x, Y: y}, pxl)
-		}
-	}
-}
+// func (v *Viewport) CalculatePixels(topLeft, bottomRight Position, settings Settings) {
+// 	for x := topLeft.X; x <= bottomRight.X; x++ {
+// 		for y := topLeft.Y; y <= bottomRight.Y; y++ {
+// 			iterations := Mandelbrot.calculate(x, y, settings)
+// 			pxl := Pixel{iterations: iterations, maxIterations: settings.MaxIter, origoCap: settings.OrigoCap}
+// 			v.SetPixel(Position{X: x, Y: y}, pxl)
+// 		}
+// 	}
+// }
 
 func (v *Viewport) SetOffset(x, y int64) {
 	v.offset.X = x

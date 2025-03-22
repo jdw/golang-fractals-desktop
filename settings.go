@@ -13,6 +13,7 @@ type Settings struct {
 	Height     int
 	MaxIter    int
 	Fullscreen bool
+	OrigoCap   float64
 }
 
 func SettingsDisplay(w fyne.Window, ret *Settings) {
