@@ -10,11 +10,13 @@ import (
 func main() {
 	a := app.New()
 	settings := Settings{
-		Width:      1000,
-		Height:     1000,
-		MaxIter:    30,
-		OrigoCap:   2.0,
-		Fullscreen: false,
+		Width:        1000,
+		Height:       1000,
+		MaxIter:      30,
+		OrigoCap:     2.0,
+		Fullscreen:   false,
+		ScreenOffset: PositionI64{0, 0},
+		Scale:        1.0,
 	}
 
 	wSett := a.NewWindow("GoLang Fractals Settings")
@@ -34,9 +36,31 @@ func main() {
 				settings.Fullscreen = !settings.Fullscreen
 				wView.SetFullScreen(settings.Fullscreen)
 			}
+
+			step := int64(10)
+			if key.Name == fyne.KeyUp {
+				settings.ScreenOffset.Y = settings.ScreenOffset.Y - step
+				wView.Canvas().Refresh(wView.Content())
+
+			}
+
+			if key.Name == fyne.KeyDown {
+				settings.ScreenOffset.Y = settings.ScreenOffset.Y + step
+				wView.Canvas().Refresh(wView.Content())
+			}
+
+			if key.Name == fyne.KeyRight {
+				settings.ScreenOffset.X = settings.ScreenOffset.X + step
+				wView.Canvas().Refresh(wView.Content())
+			}
+
+			if key.Name == fyne.KeyLeft {
+				settings.ScreenOffset.X = settings.ScreenOffset.X - step
+				wView.Canvas().Refresh(wView.Content())
+			}
 		})
 
-		ViewerDisplay(wView, settings)
+		ViewerDisplay(wView, &settings)
 	})
 
 	a.Run()

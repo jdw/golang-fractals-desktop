@@ -9,11 +9,13 @@ import (
 )
 
 type Settings struct {
-	Width      int
-	Height     int
-	MaxIter    int
-	Fullscreen bool
-	OrigoCap   float64
+	Width        int
+	Height       int
+	MaxIter      int
+	Fullscreen   bool
+	OrigoCap     float64
+	ScreenOffset PositionI64
+	Scale        float64
 }
 
 func SettingsDisplay(w fyne.Window, ret *Settings) {

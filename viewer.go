@@ -7,12 +7,12 @@ import (
 	"fyne.io/fyne/v2/canvas"
 )
 
-func ViewerDisplay(w fyne.Window, settings Settings) {
+func ViewerDisplay(w fyne.Window, settings *Settings) {
 	var view *View
 	raster := canvas.NewRasterWithPixels(
 		func(x, y, w, h int) color.Color {
 			if x == 0 && y == 0 {
-				view = NewView(settings)
+				view = NewView(*settings)
 			}
 
 			res := view.GetScreenPixel(x, y).Iterations

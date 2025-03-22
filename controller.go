@@ -5,9 +5,11 @@ type Controller struct {
 	Settings Settings
 }
 
+var model = NewModel()
+
 func NewController(settings Settings) *Controller {
 	return &Controller{
-
+		Model:    model,
 		Settings: settings,
 	}
 }
@@ -16,6 +18,7 @@ func (c *Controller) GetPixel(pos PositionI64, settings Settings) Pixel {
 	if !c.Model.HasPixel(pos, settings) {
 		posMandelbrot := Position.FromScreenCoordinateToMandelbrotCoordinates(int(pos.X), int(pos.Y), settings.Width, settings.Height)
 		res := Mandelbrot.calculate(posMandelbrot, settings)
+
 		return Pixel{res}
 	}
 

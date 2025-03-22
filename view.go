@@ -12,14 +12,15 @@ type View struct {
 func NewView(settings Settings) *View {
 	return &View{
 		data:       make(map[PositionI64]Pixel),
-		offset:     PositionI64{X: 0, Y: 0},
+		offset:     settings.ScreenOffset,
 		size:       PositionI64{X: int64(settings.Width), Y: int64(settings.Height)},
-		scale:      1.0,
+		scale:      settings.Scale,
 		Controller: NewController(settings),
 		Settings:   settings,
 	}
 }
 
 func (v *View) GetScreenPixel(x, y int) Pixel {
-	return v.Controller.GetPixel(PositionI64{X: int64(x), Y: int64(y)}, v.Settings)
+	pos := PositionI64{X: int64(x) - v.offset.X, Y: int64(y) - v.offset.Y}
+	return v.Controller.GetPixel(pos, v.Settings)
 }
