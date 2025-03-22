@@ -20,13 +20,20 @@ func main() {
 
 	wSett.SetOnClosed(func() {
 		wView := a.NewWindow("GoLang Fractals Viewer")
+		fmt.Printf("%+v\n", settings)
+
 		// Set a key binding to close the window on Escape
 		wView.Canvas().SetOnTypedKey(func(key *fyne.KeyEvent) {
 			if key.Name == fyne.KeyEscape {
 				wView.Close()
 			}
+
+			if key.Name == fyne.KeyF {
+				settings.Fullscreen = !settings.Fullscreen
+				wView.SetFullScreen(settings.Fullscreen)
+			}
 		})
-		fmt.Printf("%+v\n", settings)
+
 		ViewerDisplay(wView, settings)
 	})
 

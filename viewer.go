@@ -2,7 +2,6 @@ package main
 
 import (
 	"image/color"
-	"math/rand"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -13,17 +12,16 @@ func ViewerDisplay(w fyne.Window, settings Settings) {
 		func(x, y, w, h int) color.Color {
 			fY := float64(y) / float64(h)
 			fX := float64(x) / float64(w)
-			res := FractalUtil.calculate(fX, fY, settings.MaxIter)
+			//widthScalar := float64(settings.Width) / float64(settings.Height)
+			//heightScalar := float64(settings.Height) / float64(settings.Width)
 
-			ret := color.RGBA{R: uint8(56),
-				G: uint8(56),
-				B: uint8(56), A: 0xff}
+			res := FractalUtil.calculate((fX-0.5)*5.0, (fY-0.5)*5.0, settings.MaxIter)
+			charge := float64(res) / float64(settings.MaxIter)
 
-			if res == 10 {
-				ret = color.RGBA{R: uint8(rand.Intn(255)),
-					G: uint8(rand.Intn(255)),
-					B: uint8(rand.Intn(255)), A: 0xff}
-			}
+			ret := color.RGBA{R: uint8(charge * 255),
+				G: uint8(charge * 255),
+				B: uint8(charge * 255), A: 0xff}
+
 			return ret
 		})
 
