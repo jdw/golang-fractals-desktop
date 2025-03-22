@@ -1,37 +1,27 @@
 package main
 
 import (
-	"image/color"
-	"math/rand"
+	"fmt"
 
-	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
-	"fyne.io/fyne/v2/canvas"
 )
 
 func main() {
-	myApp := app.New()
-	w := myApp.NewWindow("GoLang Fractals Desktop")
+	a := app.New()
+	settings := Settings{
+		Width:   1920,
+		Height:  1080,
+		MaxIter: 30,
+	}
 
-	raster := canvas.NewRasterWithPixels(
-		func(x, y, w, h int) color.Color {
-			fY := float64(y) / float64(h)
-			fX := float64(x) / float64(w)
-			res := FractalUtil.calculate(fX, fY, 30)
+	wSett := a.NewWindow("GoLang Fractals Settings")
+	SettingsDisplay(wSett, &settings)
 
-			ret := color.RGBA{R: uint8(56),
-				G: uint8(56),
-				B: uint8(56), A: 0xff}
+	wSett.SetOnClosed(func() {
+		wView := a.NewWindow("GoLang Fractals Viewer")
+		fmt.Printf("%+v\n", settings)
+		ViewerDisplay(wView, settings)
+	})
 
-			if res == 10 {
-				ret = color.RGBA{R: uint8(rand.Intn(255)),
-					G: uint8(rand.Intn(255)),
-					B: uint8(rand.Intn(255)), A: 0xff}
-			}
-			return ret
-		})
-	// raster := canvas.NewRasterFromImage()
-	w.SetContent(raster)
-	w.Resize(fyne.NewSize(1920, 1080))
-	w.ShowAndRun()
+	a.Run()
 }
