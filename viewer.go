@@ -15,8 +15,7 @@ func ViewerDisplay(w fyne.Window) {
 				view = NewView(glob)
 			}
 
-			pos := Position.TransformScreenPositionsToViewScalar(x, y, glob)
-			res := view.GetScreenPixel(pos).Iterations
+			res := view.GetScreenPixel(x, y).Iterations
 			charge := float32(res) / glob.MaxIter
 
 			ret := color.RGBA{R: uint8(charge * 255),

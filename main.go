@@ -76,6 +76,8 @@ func main() {
 				glob.Scale = glob.Scale * 0.9
 				wView.Canvas().Refresh(wView.Content())
 			}
+
+			fmt.Println(glob)
 		})
 
 		ViewerDisplay(wView)

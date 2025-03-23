@@ -26,7 +26,12 @@ func NewView(settings *AppSettings) *View {
 	}
 }
 
-func (v *View) GetScreenPixel(pos PositionF64) Pixel {
+func (v *View) GetScreenPixel(x, y int) Pixel {
+	pos := Position.TransformScreenPositionsToViewScalar(x, y, glob)
+	scaledPos := PositionF64{
+		X: pos.X * v.Settings.Scale,
+		Y: pos.Y * v.Settings.Scale,
+	}
 
-	return v.Controller.GetViewPixel(pos, glob)
+	return v.Controller.GetViewPixel(scaledPos, glob)
 }
