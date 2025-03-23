@@ -26,7 +26,7 @@ func NewView(settings *AppSettings) *View {
 	}
 }
 
-func (v *View) GetScreenPixel(x, y int) Pixel {
-	pos := PositionI64{X: int64(x) - int64(v.Settings.Offset.X), Y: int64(y) - int64(v.Settings.Offset.Y)}
-	return v.Controller.GetPixel(pos, glob)
+func (v *View) GetScreenPixel(pos PositionF64) Pixel {
+	tPos := PositionF64{X: pos.X - v.Settings.Offset.X, Y: pos.Y - v.Settings.Offset.Y}
+	return v.Controller.GetPixel(tPos, glob)
 }

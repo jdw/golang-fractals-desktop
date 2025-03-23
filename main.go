@@ -2,19 +2,21 @@ package main
 
 import (
 	"fmt"
+	"math"
 
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 )
 
 var glob = &AppSettings{
-	Width:        1000,
-	Height:       1000,
-	MaxIter:      30,
-	OrigoCap:     2.0,
-	Fullscreen:   false,
-	ScreenOffset: PositionF64{0, 0},
-	Scale:        1.0,
+	Width:           1000,
+	Height:          1000,
+	MaxIter:         30,
+	OrigoCap:        2.0,
+	Fullscreen:      false,
+	ScreenOffset:    PositionF64{0, 0},
+	Scale:           1.0,
+	ModelDimensions: PositionI64{math.MaxInt32, math.MaxInt32},
 }
 
 func main() {

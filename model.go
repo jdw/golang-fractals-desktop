@@ -9,7 +9,7 @@ func NewModel() *Model {
 
 var kaka = 0
 
-func (m *Model) HasPixel(pos PositionI64, settings *AppSettings) bool {
+func (m *Model) HasPixel(pos PositionF64, settings *AppSettings) bool {
 
 	return false
 }

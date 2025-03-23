@@ -1,7 +1,5 @@
 package main
 
-import "math"
-
 type PositionI64 struct {
 	X int64
 	Y int64
@@ -17,7 +15,7 @@ type PositionHidden struct {
 
 var Position PositionHidden
 
-func (p *PositionHidden) FromScreenCoordinateToMandelbrotCoordinates(x, y int, settings *AppSettings) PositionF64 {
+func (p *PositionHidden) TransformScreenCoordinateToMandelbrotCoordinate(x, y int, settings *AppSettings) PositionF64 {
 	w := settings.Width
 	h := settings.Height
 	fX := (float64(x)/w - 0.5) * 5.0
@@ -26,9 +24,9 @@ func (p *PositionHidden) FromScreenCoordinateToMandelbrotCoordinates(x, y int, s
 	return PositionF64{X: fX, Y: fY}
 }
 
-func (p *PositionHidden) FromScreenCoordinateToModelCoordinates(x, y, w, h int) PositionI64 {
-	wX := (float64(x) / float64(w)) * math.MaxInt64
-	wY := (float64(y) / float64(h)) * math.MaxInt64
+func (p *PositionHidden) TransformViewCoordinateToModelCoordinate(x, y, w, h int) PositionI64 {
+	wX := (float64(x) / float64(w)) * glob.ModelDimensions.GetPositionF64().X
+	wY := (float64(y) / float64(h)) * glob.ModelDimensions.GetPositionF64().Y
 
 	return PositionI64{X: int64(wX), Y: int64(wY)}
 }

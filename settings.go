@@ -9,18 +9,18 @@ import (
 )
 
 type AppSettings struct {
-	Width        float64
-	Height       float64
-	MaxIter      float32
-	Fullscreen   bool
-	OrigoCap     float64
-	ScreenOffset PositionF64
-	Scale        float64
+	Width           float64
+	Height          float64
+	MaxIter         float32
+	Fullscreen      bool
+	OrigoCap        float64
+	ScreenOffset    PositionF64
+	Scale           float64
+	ModelDimensions PositionI64
 }
 
 func SettingsDisplay(w fyne.Window) {
 	widthEntry := widget.NewEntry()
-	//widthEntry.Resize(fyne.NewSize(200, widthEntry.MinSize().Height))
 	heightEntry := widget.NewEntry()
 	iterEntry := widget.NewEntry()
 	fullEntry := widget.NewCheck("", func(b bool) {
