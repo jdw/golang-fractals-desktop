@@ -17,9 +17,11 @@ type PositionHidden struct {
 
 var Position PositionHidden
 
-func (p *PositionHidden) FromScreenCoordinateToMandelbrotCoordinates(x, y, w, h int) PositionF64 {
-	fX := ((float64(x) / float64(w)) - 0.5) * 5.0
-	fY := ((float64(y) / float64(h)) - 0.5) * 5.0
+func (p *PositionHidden) FromScreenCoordinateToMandelbrotCoordinates(x, y int, settings *AppSettings) PositionF64 {
+	w := settings.Width
+	h := settings.Height
+	fX := (float64(x)/w - 0.5) * 5.0
+	fY := (float64(y)/h - 0.5) * 5.0
 
 	return PositionF64{X: fX, Y: fY}
 }

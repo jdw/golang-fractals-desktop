@@ -20,7 +20,7 @@ var glob = &AppSettings{
 func main() {
 	a := app.New()
 
-	wSett := a.NewWindow("GoLang Fractals glob")
+	wSett := a.NewWindow("GoLang Fractals Settings")
 	SettingsDisplay(wSett)
 
 	wSett.SetOnClosed(func() {

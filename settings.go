@@ -9,9 +9,9 @@ import (
 )
 
 type AppSettings struct {
-	Width        int
-	Height       int
-	MaxIter      int
+	Width        float64
+	Height       float64
+	MaxIter      float32
 	Fullscreen   bool
 	OrigoCap     float64
 	ScreenOffset PositionF64
@@ -27,9 +27,9 @@ func SettingsDisplay(w fyne.Window) {
 		glob.Fullscreen = b
 
 	})
-	widthEntry.Text = strconv.Itoa(glob.Width)
-	heightEntry.Text = strconv.Itoa(glob.Height)
-	iterEntry.Text = strconv.Itoa(glob.MaxIter)
+	widthEntry.Text = strconv.Itoa(int(glob.Width))
+	heightEntry.Text = strconv.Itoa(int(glob.Height))
+	iterEntry.Text = strconv.Itoa(int(glob.MaxIter))
 
 	currentErrorLabel := widget.NewLabel("")
 
@@ -38,7 +38,7 @@ func SettingsDisplay(w fyne.Window) {
 		widthStr := widthEntry.Text
 
 		if widthStr == "" {
-			widthEntry.Text = strconv.Itoa(glob.Width)
+			widthEntry.Text = strconv.Itoa(int(glob.Width))
 			return
 		}
 
@@ -50,7 +50,7 @@ func SettingsDisplay(w fyne.Window) {
 		}
 
 		if width > 100 {
-			glob.Width = width
+			glob.Width = float64(width)
 		} else {
 			currentErrorLabel.SetText("Width must be atleast 100")
 			return
@@ -59,7 +59,7 @@ func SettingsDisplay(w fyne.Window) {
 		heightStr := heightEntry.Text
 
 		if heightStr == "" {
-			heightEntry.Text = strconv.Itoa(glob.Height)
+			heightEntry.Text = strconv.Itoa(int(glob.Height))
 			return
 		}
 
@@ -71,7 +71,7 @@ func SettingsDisplay(w fyne.Window) {
 		}
 
 		if height > 100 {
-			glob.Height = height
+			glob.Height = float64(height)
 		} else {
 			currentErrorLabel.SetText("Height must be atleast 100")
 			return
@@ -80,7 +80,7 @@ func SettingsDisplay(w fyne.Window) {
 		iterStr := iterEntry.Text
 
 		if iterStr == "" {
-			iterEntry.Text = strconv.Itoa(glob.MaxIter)
+			iterEntry.Text = strconv.Itoa(int(glob.MaxIter))
 			return
 		}
 
@@ -92,7 +92,7 @@ func SettingsDisplay(w fyne.Window) {
 		}
 
 		if iter > 1 {
-			glob.MaxIter = iter
+			glob.MaxIter = float32(iter)
 		} else {
 			currentErrorLabel.SetText("Iterations must be atleast 1")
 			return

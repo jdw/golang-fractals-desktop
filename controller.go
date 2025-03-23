@@ -16,7 +16,7 @@ func NewController(settings *AppSettings) *Controller {
 
 func (c *Controller) GetPixel(pos PositionI64, settings *AppSettings) Pixel {
 	if !c.Model.HasPixel(pos, settings) {
-		posMandelbrot := Position.FromScreenCoordinateToMandelbrotCoordinates(int(pos.X), int(pos.Y), settings.Width, settings.Height)
+		posMandelbrot := Position.FromScreenCoordinateToMandelbrotCoordinates(int(pos.X), int(pos.Y), settings)
 		res := Mandelbrot.calculate(posMandelbrot, settings)
 
 		return Pixel{res}
