@@ -8,7 +8,7 @@ import (
 	"fyne.io/fyne/v2/widget"
 )
 
-type Settings struct {
+type AppSettings struct {
 	Width        int
 	Height       int
 	MaxIter      int
@@ -18,19 +18,18 @@ type Settings struct {
 	Scale        float64
 }
 
-func SettingsDisplay(w fyne.Window, ret *Settings) {
-
+func SettingsDisplay(w fyne.Window) {
 	widthEntry := widget.NewEntry()
 	//widthEntry.Resize(fyne.NewSize(200, widthEntry.MinSize().Height))
 	heightEntry := widget.NewEntry()
 	iterEntry := widget.NewEntry()
 	fullEntry := widget.NewCheck("", func(b bool) {
-		ret.Fullscreen = b
+		glob.Fullscreen = b
 
 	})
-	widthEntry.Text = strconv.Itoa(ret.Width)
-	heightEntry.Text = strconv.Itoa(ret.Height)
-	iterEntry.Text = strconv.Itoa(ret.MaxIter)
+	widthEntry.Text = strconv.Itoa(glob.Width)
+	heightEntry.Text = strconv.Itoa(glob.Height)
+	iterEntry.Text = strconv.Itoa(glob.MaxIter)
 
 	currentErrorLabel := widget.NewLabel("")
 
@@ -39,7 +38,7 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		widthStr := widthEntry.Text
 
 		if widthStr == "" {
-			widthEntry.Text = strconv.Itoa(ret.Width)
+			widthEntry.Text = strconv.Itoa(glob.Width)
 			return
 		}
 
@@ -51,7 +50,7 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		}
 
 		if width > 100 {
-			ret.Width = width
+			glob.Width = width
 		} else {
 			currentErrorLabel.SetText("Width must be atleast 100")
 			return
@@ -60,7 +59,7 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		heightStr := heightEntry.Text
 
 		if heightStr == "" {
-			heightEntry.Text = strconv.Itoa(ret.Height)
+			heightEntry.Text = strconv.Itoa(glob.Height)
 			return
 		}
 
@@ -72,7 +71,7 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		}
 
 		if height > 100 {
-			ret.Height = height
+			glob.Height = height
 		} else {
 			currentErrorLabel.SetText("Height must be atleast 100")
 			return
@@ -81,7 +80,7 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		iterStr := iterEntry.Text
 
 		if iterStr == "" {
-			iterEntry.Text = strconv.Itoa(ret.MaxIter)
+			iterEntry.Text = strconv.Itoa(glob.MaxIter)
 			return
 		}
 
@@ -93,13 +92,12 @@ func SettingsDisplay(w fyne.Window, ret *Settings) {
 		}
 
 		if iter > 1 {
-			ret.MaxIter = iter
+			glob.MaxIter = iter
 		} else {
 			currentErrorLabel.SetText("Iterations must be atleast 1")
 			return
 		}
 
-		println("oi")
 		w.Close()
 	}
 

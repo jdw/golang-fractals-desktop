@@ -2,19 +2,19 @@ package main
 
 type Controller struct {
 	Model    *Model
-	Settings Settings
+	Settings *AppSettings
 }
 
 var model = NewModel()
 
-func NewController(settings Settings) *Controller {
+func NewController(settings *AppSettings) *Controller {
 	return &Controller{
 		Model:    model,
 		Settings: settings,
 	}
 }
 
-func (c *Controller) GetPixel(pos PositionI64, settings Settings) Pixel {
+func (c *Controller) GetPixel(pos PositionI64, settings *AppSettings) Pixel {
 	if !c.Model.HasPixel(pos, settings) {
 		posMandelbrot := Position.FromScreenCoordinateToMandelbrotCoordinates(int(pos.X), int(pos.Y), settings.Width, settings.Height)
 		res := Mandelbrot.calculate(posMandelbrot, settings)

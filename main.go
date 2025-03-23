@@ -7,24 +7,25 @@ import (
 	"fyne.io/fyne/v2/app"
 )
 
+var glob = &AppSettings{
+	Width:        1000,
+	Height:       1000,
+	MaxIter:      30,
+	OrigoCap:     2.0,
+	Fullscreen:   false,
+	ScreenOffset: PositionI64{0, 0},
+	Scale:        1.0,
+}
+
 func main() {
 	a := app.New()
-	settings := Settings{
-		Width:        1000,
-		Height:       1000,
-		MaxIter:      30,
-		OrigoCap:     2.0,
-		Fullscreen:   false,
-		ScreenOffset: PositionI64{0, 0},
-		Scale:        1.0,
-	}
 
-	wSett := a.NewWindow("GoLang Fractals Settings")
-	SettingsDisplay(wSett, &settings)
+	wSett := a.NewWindow("GoLang Fractals glob")
+	SettingsDisplay(wSett)
 
 	wSett.SetOnClosed(func() {
 		wView := a.NewWindow("GoLang Fractals Viewer")
-		fmt.Printf("%+v\n", settings)
+		fmt.Printf("%+v\n", glob)
 
 		// Set a key binding to close the window on Escape
 		wView.Canvas().SetOnTypedKey(func(key *fyne.KeyEvent) {
@@ -33,34 +34,34 @@ func main() {
 			}
 
 			if key.Name == fyne.KeyF {
-				settings.Fullscreen = !settings.Fullscreen
-				wView.SetFullScreen(settings.Fullscreen)
+				glob.Fullscreen = !glob.Fullscreen
+				wView.SetFullScreen(glob.Fullscreen)
 			}
 
 			step := int64(10)
 			if key.Name == fyne.KeyUp {
-				settings.ScreenOffset.Y = settings.ScreenOffset.Y - step
+				glob.ScreenOffset.Y = glob.ScreenOffset.Y - step
 				wView.Canvas().Refresh(wView.Content())
 
 			}
 
 			if key.Name == fyne.KeyDown {
-				settings.ScreenOffset.Y = settings.ScreenOffset.Y + step
+				glob.ScreenOffset.Y = glob.ScreenOffset.Y + step
 				wView.Canvas().Refresh(wView.Content())
 			}
 
 			if key.Name == fyne.KeyRight {
-				settings.ScreenOffset.X = settings.ScreenOffset.X + step
+				glob.ScreenOffset.X = glob.ScreenOffset.X + step
 				wView.Canvas().Refresh(wView.Content())
 			}
 
 			if key.Name == fyne.KeyLeft {
-				settings.ScreenOffset.X = settings.ScreenOffset.X - step
+				glob.ScreenOffset.X = glob.ScreenOffset.X - step
 				wView.Canvas().Refresh(wView.Content())
 			}
 		})
 
-		ViewerDisplay(wView, &settings)
+		ViewerDisplay(wView)
 	})
 
 	a.Run()

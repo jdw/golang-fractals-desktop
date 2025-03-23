@@ -9,7 +9,7 @@ type MandelbrotHidden struct {
 
 var Mandelbrot MandelbrotHidden
 
-func (f *MandelbrotHidden) calculate(pos PositionF64, settings Settings) uint8 {
+func (f *MandelbrotHidden) calculate(pos PositionF64, settings *AppSettings) uint8 {
 	ret := uint8(0)
 	maxIter := uint8(settings.MaxIter)
 
