@@ -13,7 +13,7 @@ var glob = &AppSettings{
 	MaxIter:      30,
 	OrigoCap:     2.0,
 	Fullscreen:   false,
-	ScreenOffset: PositionI64{0, 0},
+	ScreenOffset: PositionF64{0, 0},
 	Scale:        1.0,
 }
 
@@ -38,7 +38,7 @@ func main() {
 				wView.SetFullScreen(glob.Fullscreen)
 			}
 
-			step := int64(10)
+			step := 10.0
 			if key.Name == fyne.KeyUp {
 				glob.ScreenOffset.Y = glob.ScreenOffset.Y - step
 				wView.Canvas().Refresh(wView.Content())

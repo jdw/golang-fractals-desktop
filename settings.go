@@ -14,7 +14,7 @@ type AppSettings struct {
 	MaxIter      int
 	Fullscreen   bool
 	OrigoCap     float64
-	ScreenOffset PositionI64
+	ScreenOffset PositionF64
 	Scale        float64
 }
 
