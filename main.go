@@ -40,7 +40,7 @@ func main() {
 				wView.SetFullScreen(glob.Fullscreen)
 			}
 
-			step := 10.0
+			step := 100.0
 			if key.Name == fyne.KeyUp {
 				glob.ScreenOffset.Y = glob.ScreenOffset.Y - step
 				wView.Canvas().Refresh(wView.Content())
@@ -53,12 +53,12 @@ func main() {
 			}
 
 			if key.Name == fyne.KeyRight {
-				glob.ScreenOffset.X = glob.ScreenOffset.X + step
+				glob.ScreenOffset.X = glob.ScreenOffset.X - step
 				wView.Canvas().Refresh(wView.Content())
 			}
 
 			if key.Name == fyne.KeyLeft {
-				glob.ScreenOffset.X = glob.ScreenOffset.X - step
+				glob.ScreenOffset.X = glob.ScreenOffset.X + step
 				wView.Canvas().Refresh(wView.Content())
 			}
 
