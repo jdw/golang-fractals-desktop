@@ -9,7 +9,7 @@ type ViewSettings struct {
 func NewViewSettings(settings *AppSettings) *ViewSettings {
 	return &ViewSettings{
 		Offset: PositionF64{X: settings.ScreenOffset.X, Y: settings.ScreenOffset.Y},
-		Size:   PositionF64{X: float64(settings.Width), Y: float64(settings.Height)},
+		Size:   PositionF64{X: settings.Width, Y: settings.Height},
 		Scale:  settings.Scale,
 	}
 }
@@ -27,6 +27,6 @@ func NewView(settings *AppSettings) *View {
 }
 
 func (v *View) GetScreenPixel(pos PositionF64) Pixel {
-	tPos := PositionF64{X: pos.X - v.Settings.Offset.X, Y: pos.Y - v.Settings.Offset.Y}
-	return v.Controller.GetPixel(tPos, glob)
+
+	return v.Controller.GetViewPixel(pos, glob)
 }

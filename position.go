@@ -15,13 +15,11 @@ type PositionHidden struct {
 
 var Position PositionHidden
 
-func (p *PositionHidden) TransformScreenCoordinateToMandelbrotCoordinate(pos PositionF64, settings *AppSettings) PositionF64 {
+func (p *PositionHidden) TransformViewScalarToMandelbrotCoordinate(pos PositionF64, settings *AppSettings) PositionF64 { // TODO Bad namn
 	x := pos.X
 	y := pos.Y
-	w := settings.Width
-	h := settings.Height
-	tX := (x/w - 0.5) * 5.0
-	tY := (y/h - 0.5) * 5.0
+	tX := (x - 0.5) * 5.0
+	tY := (y - 0.5) * 5.0
 
 	return PositionF64{X: tX, Y: tY}
 }
@@ -33,6 +31,25 @@ func (p *PositionHidden) TransformViewCoordinateToModelCoordinate(pos PositionF6
 	h := settings.Height
 	tX := (x / w) * glob.ModelDimensions.GetPositionF64().X
 	tY := (y / h) * glob.ModelDimensions.GetPositionF64().Y
+
+	return PositionI64{X: int64(tX), Y: int64(tY)}
+}
+
+func (p *PositionHidden) TransformScreenPositionsToViewScalar(x, y int, settings *AppSettings) PositionF64 {
+	fX := float64(x)
+	fY := float64(y)
+	w := settings.Width
+	h := settings.Height
+	tX := fX / w
+	tY := fY / h
+
+	return PositionF64{X: tX, Y: tY}
+}
+
+func (p *PositionHidden) TransformViewScalarToModelCoordinate(pos PositionF64, settings *AppSettings) PositionI64 {
+	//pixelQuota := float64(settings.ModelDimensions.X) / settings.Width
+	tX := pos.X * float64(settings.ModelDimensions.X)
+	tY := pos.Y * float64(settings.ModelDimensions.Y)
 
 	return PositionI64{X: int64(tX), Y: int64(tY)}
 }

@@ -22,6 +22,11 @@ var glob = &AppSettings{
 func main() {
 	a := app.New()
 
+	tUpperLeft := Position.TransformViewScalarToModelCoordinate(PositionF64{0, 0}, glob)
+	tLowerRight := Position.TransformViewScalarToModelCoordinate(PositionF64{1.0, 1.0}, glob)
+	fmt.Println("Upper left: ", tUpperLeft)
+	fmt.Println("Lower right: ", tLowerRight)
+	fmt.Println("Model dimensions: ", glob.ModelDimensions)
 	wSett := a.NewWindow("GoLang Fractals Settings")
 	SettingsDisplay(wSett)
 
@@ -59,6 +64,16 @@ func main() {
 
 			if key.Name == fyne.KeyLeft {
 				glob.ScreenOffset.X = glob.ScreenOffset.X - step
+				wView.Canvas().Refresh(wView.Content())
+			}
+
+			if key.Name == fyne.KeyS {
+				glob.Scale = glob.Scale * 1.1
+				wView.Canvas().Refresh(wView.Content())
+			}
+
+			if key.Name == fyne.KeyA {
+				glob.Scale = glob.Scale * 0.9
 				wView.Canvas().Refresh(wView.Content())
 			}
 		})

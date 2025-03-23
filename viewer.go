@@ -15,7 +15,7 @@ func ViewerDisplay(w fyne.Window) {
 				view = NewView(glob)
 			}
 
-			pos := PositionF64{X: float64(x), Y: float64(y)}
+			pos := Position.TransformScreenPositionsToViewScalar(x, y, glob)
 			res := view.GetScreenPixel(pos).Iterations
 			charge := float32(res) / glob.MaxIter
 
