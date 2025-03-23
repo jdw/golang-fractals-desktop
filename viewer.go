@@ -8,12 +8,9 @@ import (
 )
 
 func ViewerDisplay(w fyne.Window) {
-	var view *View
+	view := NewView(glob)
 	raster := canvas.NewRasterWithPixels(
 		func(x, y, w, h int) color.Color {
-			if x == 0 && y == 0 {
-				view = NewView(glob)
-			}
 
 			res := view.GetScreenPixel(x, y).Iterations
 			charge := float32(res) / glob.MaxIter
