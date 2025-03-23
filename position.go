@@ -16,12 +16,9 @@ type PositionHidden struct {
 var Position PositionHidden
 
 func (p *PositionHidden) TransformViewScalarToMandelbrotCoordinate(pos PositionF64, settings *AppSettings) PositionF64 { // TODO Bad namn
-	x := pos.X
-	y := pos.Y
-	tX := (x - 0.5) * 5.0
-	tY := (y - 0.5) * 5.0
+	scalar := 2.5
 
-	return PositionF64{X: tX, Y: tY}
+	return PositionF64{X: pos.X * scalar, Y: pos.Y * scalar}
 }
 
 func (p *PositionHidden) TransformViewCoordinateToModelCoordinate(pos PositionF64, settings *AppSettings) PositionI64 {
@@ -52,6 +49,19 @@ func (p *PositionHidden) TransformViewScalarToModelCoordinate(pos PositionF64, s
 	tY := pos.Y * float64(settings.ModelDimensions.Y)
 
 	return PositionI64{X: int64(tX), Y: int64(tY)}
+}
+
+func (p *PositionHidden) TransformScreenPositionsToViewOrigoCenteredScalar(x, y int, settings *AppSettings) PositionF64 {
+	w := settings.Width
+	h := settings.Height
+	scalarX := float64(x) / float64(w)
+	scalarY := float64(y) / float64(h)
+
+	// Optional: Scale to a specific range (e.g., -1 to 1)
+	scalarX = (scalarX * 2) - 1
+	scalarY = (scalarY * 2) - 1
+
+	return PositionF64{X: scalarX, Y: scalarY}
 }
 
 func (p *PositionI64) GetPositionF64() PositionF64 {

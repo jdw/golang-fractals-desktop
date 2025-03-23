@@ -22,11 +22,6 @@ var glob = &AppSettings{
 func main() {
 	a := app.New()
 
-	tUpperLeft := Position.TransformViewScalarToModelCoordinate(PositionF64{0, 0}, glob)
-	tLowerRight := Position.TransformViewScalarToModelCoordinate(PositionF64{1.0, 1.0}, glob)
-	fmt.Println("Upper left: ", tUpperLeft)
-	fmt.Println("Lower right: ", tLowerRight)
-	fmt.Println("Model dimensions: ", glob.ModelDimensions)
 	wSett := a.NewWindow("GoLang Fractals Settings")
 	SettingsDisplay(wSett)
 

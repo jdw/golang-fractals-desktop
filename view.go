@@ -27,7 +27,7 @@ func NewView(settings *AppSettings) *View {
 }
 
 func (v *View) GetScreenPixel(x, y int) Pixel {
-	pos := Position.TransformScreenPositionsToViewScalar(x, y, glob)
+	pos := Position.TransformScreenPositionsToViewOrigoCenteredScalar(x, y, glob)
 	scaledPos := PositionF64{
 		X: pos.X * v.Settings.Scale,
 		Y: pos.Y * v.Settings.Scale,
