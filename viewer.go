@@ -11,8 +11,12 @@ func ViewerDisplay(w fyne.Window) {
 	var view *View
 	raster := canvas.NewRasterWithPixels(
 		func(x, y, w, h int) color.Color {
-			if x == 0 && y == 0 {
+			if x == 0 && y == 0 && view == nil {
 				view = NewView(glob)
+			}
+
+			if x == 0 && y == 0 {
+				view.Settings = NewViewSettings(glob)
 			}
 
 			res := view.GetScreenPixel(x, y).Iterations
