@@ -51,9 +51,7 @@ func (p *PositionHidden) TransformViewScalarToModelCoordinate(pos PositionF64, s
 	return PositionI64{X: int64(tX), Y: int64(tY)}
 }
 
-func (p *PositionHidden) TransformScreenPositionsToViewOrigoCenteredScalar(x, y int, settings *AppSettings) PositionF64 {
-	w := settings.Width
-	h := settings.Height
+func (p *PositionHidden) TransformScreenPositionsToViewOrigoCenteredScalar(x, y int, w, h float64) PositionF64 {
 	scalarX := float64(x) / float64(w)
 	scalarY := float64(y) / float64(h)
 

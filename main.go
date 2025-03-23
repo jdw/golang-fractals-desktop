@@ -9,24 +9,28 @@ import (
 )
 
 var glob = &AppSettings{
-	Width:           1000,
-	Height:          1000,
-	MaxIter:         30,
-	OrigoCap:        2.0,
-	Fullscreen:      false,
-	ScreenOffset:    PositionF64{0, 0},
-	Scale:           1.0,
-	ModelDimensions: PositionI64{math.MaxInt32, math.MaxInt32},
+	Width:               1000,
+	Height:              1000,
+	MaxIter:             30,
+	OrigoCap:            2.0,
+	Fullscreen:          false,
+	ScreenOffset:        PositionF64{-500, -500},
+	Scale:               1.0,
+	ModelDimensions:     PositionI64{math.MaxInt32, math.MaxInt32},
+	SettingsWindowTitle: "GoLang Fractals Settings",
+	ViewerWindowTitle:   "GoLang Fractals Viewer",
+	TeamName:            "beefbabe",
+	TeamPassword:        "",
 }
 
 func main() {
 	a := app.New()
 
-	wSett := a.NewWindow("GoLang Fractals Settings")
+	wSett := a.NewWindow(glob.SettingsWindowTitle)
 	SettingsDisplay(wSett)
 
 	wSett.SetOnClosed(func() {
-		wView := a.NewWindow("GoLang Fractals Viewer")
+		wView := a.NewWindow(glob.ViewerWindowTitle)
 		fmt.Printf("%+v\n", glob)
 
 		// Set a key binding to close the window on Escape

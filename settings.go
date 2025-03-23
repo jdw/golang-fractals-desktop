@@ -9,14 +9,18 @@ import (
 )
 
 type AppSettings struct {
-	Width           float64
-	Height          float64
-	MaxIter         float32
-	Fullscreen      bool
-	OrigoCap        float64
-	ScreenOffset    PositionF64
-	Scale           float64
-	ModelDimensions PositionI64
+	Width               float64
+	Height              float64
+	MaxIter             float32
+	Fullscreen          bool
+	OrigoCap            float64
+	ScreenOffset        PositionF64
+	Scale               float64
+	ModelDimensions     PositionI64
+	SettingsWindowTitle string
+	ViewerWindowTitle   string
+	TeamName            string
+	TeamPassword        string
 }
 
 func SettingsDisplay(w fyne.Window) {
@@ -27,6 +31,10 @@ func SettingsDisplay(w fyne.Window) {
 		glob.Fullscreen = b
 
 	})
+	teamNameEntry := widget.NewEntry()
+	teamNameEntry.SetPlaceHolder("beefbabe")
+	teamPassword := widget.NewEntry()
+
 	widthEntry.Text = strconv.Itoa(int(glob.Width))
 	heightEntry.Text = strconv.Itoa(int(glob.Height))
 	iterEntry.Text = strconv.Itoa(int(glob.MaxIter))
@@ -98,6 +106,18 @@ func SettingsDisplay(w fyne.Window) {
 			return
 		}
 
+		if teamNameEntry.Text != "" {
+			glob.TeamName = teamNameEntry.Text
+		} else {
+			currentErrorLabel.SetText("Team name must not be empty")
+			return
+		}
+		if teamPassword.Text != "" {
+			glob.TeamPassword = teamPassword.Text
+		} else {
+			currentErrorLabel.SetText("Team password must not be empty")
+			return
+		}
 		w.Close()
 	}
 
@@ -110,6 +130,8 @@ func SettingsDisplay(w fyne.Window) {
 		container.NewHBox(widget.NewLabel("Viewer window heigth (int):"), heightEntry),
 		container.NewHBox(widget.NewLabel("Max iterations (int):"), iterEntry),
 		container.NewHBox(widget.NewLabel("Fullscreen:"), fullEntry),
+		container.NewHBox(widget.NewLabel("Team name:"), teamNameEntry),
+		container.NewHBox(widget.NewLabel("Team password:"), teamPassword),
 		applyButton,
 		currentErrorLabel,
 	)

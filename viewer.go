@@ -16,17 +16,15 @@ func ViewerDisplay(w fyne.Window) {
 			}
 
 			if x == 0 && y == 0 {
+				oldSettings := view.Settings
 				view.Settings = NewViewSettings(glob)
+
+				if oldSettings.Scale != view.Settings.Scale {
+					view.TransferTexture()
+				}
 			}
 
-			res := view.GetScreenPixel(x, y).Iterations
-			charge := float32(res) / glob.MaxIter
-
-			ret := color.RGBA{R: uint8(charge * 255),
-				G: uint8(charge * 255),
-				B: uint8(charge * 255), A: 0xff}
-
-			return ret
+			return view.GetScreenPixel(x, y)
 		})
 
 	raster.Resize(fyne.NewSize(float32(glob.Width), float32(glob.Height)))
