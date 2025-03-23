@@ -15,23 +15,28 @@ type PositionHidden struct {
 
 var Position PositionHidden
 
-func (p *PositionHidden) TransformScreenCoordinateToMandelbrotCoordinate(x, y int, settings *AppSettings) PositionF64 {
+func (p *PositionHidden) TransformScreenCoordinateToMandelbrotCoordinate(pos PositionF64, settings *AppSettings) PositionF64 {
+	x := pos.X
+	y := pos.Y
 	w := settings.Width
 	h := settings.Height
-	fX := (float64(x)/w - 0.5) * 5.0
-	fY := (float64(y)/h - 0.5) * 5.0
+	tX := (x/w - 0.5) * 5.0
+	tY := (y/h - 0.5) * 5.0
 
-	return PositionF64{X: fX, Y: fY}
+	return PositionF64{X: tX, Y: tY}
 }
 
-func (p *PositionHidden) TransformViewCoordinateToModelCoordinate(x, y, w, h int) PositionI64 {
-	wX := (float64(x) / float64(w)) * glob.ModelDimensions.GetPositionF64().X
-	wY := (float64(y) / float64(h)) * glob.ModelDimensions.GetPositionF64().Y
+func (p *PositionHidden) TransformViewCoordinateToModelCoordinate(pos PositionF64, settings *AppSettings) PositionI64 {
+	x := pos.X
+	y := pos.Y
+	w := settings.Width
+	h := settings.Height
+	tX := (x / w) * glob.ModelDimensions.GetPositionF64().X
+	tY := (y / h) * glob.ModelDimensions.GetPositionF64().Y
 
-	return PositionI64{X: int64(wX), Y: int64(wY)}
+	return PositionI64{X: int64(tX), Y: int64(tY)}
 }
 
 func (p *PositionI64) GetPositionF64() PositionF64 {
-	// USe math.Float64frombits() ????
 	return PositionF64{X: float64(p.X), Y: float64(p.Y)}
 }
